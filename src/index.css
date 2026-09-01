@@ -7,11 +7,15 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-black text-white antialiased;
+    background-color: #000000;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
   ::selection {
-    @apply bg-red-600 text-white;
+    background-color: #dc2626;
+    color: #ffffff;
   }
 }
 
