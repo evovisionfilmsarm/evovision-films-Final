@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ArrowRight, ExternalLink, Handshake } from 'lucide-react';
-import { Link } from '@/lib/router';
-import { useLanguage } from '@/lib/LanguageContext';
-import { fetchAllSponsors } from '@/lib/adminApi';
-import type { Sponsor } from '@/lib/types';
+import { Link } from '../lib/router';
+import { useLanguage } from '../lib/LanguageContext';
+import { fetchAllSponsors } from '../lib/adminApi';
+import type { Sponsor } from '../lib/types';
 
 export function PartnersPage() {
   const { t, lang } = useLanguage();

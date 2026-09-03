@@ -1,7 +1,7 @@
-import { useLanguage } from '@/lib/LanguageContext';
-import { ContentCard } from '@/components/ContentCard';
-import { SponsorBlock } from '@/components/SponsorBlock';
-import { useContentByProgram, useSponsorById } from '@/lib/contentHooks';
+import { useLanguage } from '../lib/LanguageContext';
+import { ContentCard } from '../components/ContentCard';
+import { SponsorBlock } from '../components/SponsorBlock';
+import { useContentByProgram, useSponsorById } from '../lib/contentHooks';
 
 export function WorksPage() {
   const { t } = useLanguage();

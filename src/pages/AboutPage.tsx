@@ -1,6 +1,6 @@
 import { Film, Clapperboard, Scissors, Target, User, Sparkles } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import { sampleImages } from '@/lib/sampleData';
+import { useLanguage } from '../lib/LanguageContext';
+import { sampleImages } from '../lib/sampleData';
 
 export function AboutPage() {
   const { t } = useLanguage();

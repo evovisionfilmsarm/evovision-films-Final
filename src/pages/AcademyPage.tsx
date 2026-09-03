@@ -1,8 +1,8 @@
 import { Lock, Sparkles, CirclePlay as PlayCircle, Info } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import { ContentCard } from '@/components/ContentCard';
-import { useLessonsByTier } from '@/lib/contentHooks';
-import { sampleImages } from '@/lib/sampleData';
+import { useLanguage } from '../lib/LanguageContext';
+import { ContentCard } from '../components/ContentCard';
+import { useLessonsByTier } from '../lib/contentHooks';
+import { sampleImages } from '../lib/sampleData';
 
 export function AcademyPage() {
   const { t } = useLanguage();

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useAuth } from '@/lib/AuthContext';
-import { navigate } from '@/lib/router';
+import { useAuth } from '../lib/AuthContext';
+import { navigate } from '../lib/router';
 
 export function LoginPage() {
   const { signIn } = useAuth();

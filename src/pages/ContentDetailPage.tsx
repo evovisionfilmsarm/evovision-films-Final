@@ -1,11 +1,11 @@
-import { useLanguage } from '@/lib/LanguageContext';
+import { useLanguage } from '../lib/LanguageContext';
 import { useEffect, useRef, useState } from 'react';
 import { Send, Clock, Calendar, Tag, Lock, Volume2, VolumeX } from 'lucide-react';
-import { BackLink } from '@/components/BackLink';
-import { SponsorBlock } from '@/components/SponsorBlock';
-import { ContentCard } from '@/components/ContentCard';
-import { useContentBySlug, useRelatedContent, useSponsorById } from '@/lib/contentHooks';
-import type { ContentItem } from '@/lib/types';
+import { BackLink } from '../components/BackLink';
+import { SponsorBlock } from '../components/SponsorBlock';
+import { ContentCard } from '../components/ContentCard';
+import { useContentBySlug, useRelatedContent, useSponsorById } from '../lib/contentHooks';
+import type { ContentItem } from '../lib/types';
 
 export function ContentDetailPage({ slug }: { slug: string }) {
   const { lang, t } = useLanguage();
@@ -131,12 +131,11 @@ export function ContentDetailPage({ slug }: { slug: string }) {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-
-          {/* Poster / Shorts */}
-          <div className="lg:col-span-1">
-            <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-xl overflow-hidden bg-zinc-950 border border-white/5 sticky top-24">
-
+        {/* Academy layout: 16:9 centered video with content below */}
+        {item.programSlug === 'academy' ? (
+          <div className="max-w-4xl mx-auto">
+            {/* 16:9 Video Player */}
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-zinc-950 border border-white/5 mb-8">
               {youtubeEmbedUrl ? (
                 <>
                   <iframe
@@ -169,105 +168,238 @@ export function ContentDetailPage({ slug }: { slug: string }) {
                   className="w-full h-full object-cover"
                 />
               )}
-
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="lg:col-span-2">
-
-            {/* Metadata */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 pb-8 border-b border-white/10">
-
-              {item.year && (
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
-                    {t('common.year')}
-                  </span>
-                  <span className="text-sm text-white flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-red-500" />
-                    {item.year}
-                  </span>
-                </div>
-              )}
-
-              {item.genre && (
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
-                    {t('common.genre')}
-                  </span>
-                  <span className="text-sm text-white flex items-center gap-1.5">
-                    <Tag className="w-3.5 h-3.5 text-red-500" />
-                    {item.genre}
-                  </span>
-                </div>
-              )}
-
-              {item.duration && (
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
-                    {t('common.duration')}
-                  </span>
-                  <span className="text-sm text-white flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-red-500" />
-                    {item.duration}
-                  </span>
-                </div>
-              )}
-
-              {item.difficulty && (
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
-                    {t('common.difficulty')}
-                  </span>
-                  <span className="text-sm text-white">
-                    {t(`academy.${item.difficulty}` as never)}
-                  </span>
-                </div>
-              )}
-
             </div>
 
-            {/* Synopsis */}
-            <div className="mb-8">
-              <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
-                {t('common.readMore')}
-              </h2>
-              <p className="text-lg text-white/70 leading-relaxed">
-                {tr.synopsis}
-              </p>
-            </div>
+            {/* Content below video */}
+            <div>
+              {/* Metadata */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 pb-8 border-b border-white/10">
+                {item.year && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.year')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-red-500" />
+                      {item.year}
+                    </span>
+                  </div>
+                )}
 
-            {/* Description */}
-            <div className="mb-8">
-              <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
-                EvoVision Films
-              </h2>
-              <p className="text-base text-white/60 leading-relaxed whitespace-pre-line">
-                {tr.description}
-              </p>
-            </div>
+                {item.genre && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.genre')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Tag className="w-3.5 h-3.5 text-red-500" />
+                      {item.genre}
+                    </span>
+                  </div>
+                )}
 
-            {/* Sponsor */}
-            <SponsorBlock sponsor={sponsor} />
+                {item.duration && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.duration')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-red-500" />
+                      {item.duration}
+                    </span>
+                  </div>
+                )}
 
-            {/* CTA */}
-            {item.telegramLink && !showComingSoon && (
-              <div className="mt-8">
-                <a
-                  href={item.telegramLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 px-7 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-600/30"
-                >
-                  <Send className="w-5 h-5" />
-                  {t('common.watchOnTelegram')}
-                </a>
+                {item.difficulty && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.difficulty')}
+                    </span>
+                    <span className="text-sm text-white">
+                      {t(`academy.${item.difficulty}` as never)}
+                    </span>
+                  </div>
+                )}
               </div>
-            )}
 
+              {/* Synopsis */}
+              <div className="mb-8">
+                <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
+                  {t('common.readMore')}
+                </h2>
+                <p className="text-lg text-white/70 leading-relaxed">
+                  {tr.synopsis}
+                </p>
+              </div>
+
+              {/* Description */}
+              <div className="mb-8">
+                <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
+                  EvoVision Films
+                </h2>
+                <p className="text-base text-white/60 leading-relaxed whitespace-pre-line">
+                  {tr.description}
+                </p>
+              </div>
+
+              {/* CTA */}
+              {item.telegramLink && !showComingSoon && (
+                <div className="mb-8">
+                  <a
+                    href={item.telegramLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-7 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-600/30"
+                  >
+                    <Send className="w-5 h-5" />
+                    {t('common.watchOnTelegram')}
+                  </a>
+                </div>
+              )}
+
+              {/* Sponsor */}
+              <SponsorBlock sponsor={sponsor} />
+            </div>
           </div>
-        </div>
+        ) : (
+          /* KinoMas layout: 9:16 vertical player with side content */
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Poster / Shorts */}
+            <div className="lg:col-span-1">
+              <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-xl overflow-hidden bg-zinc-950 border border-white/5 sticky top-24">
+
+                {youtubeEmbedUrl ? (
+                  <>
+                    <iframe
+                      ref={trailerRef}
+                      src={youtubeEmbedUrl}
+                      title={tr.title}
+                      className="absolute inset-0 w-full h-full"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                    />
+
+                    {/* Sound button */}
+                    <button
+                      type="button"
+                      onClick={toggleMute}
+                      aria-label={isMuted ? 'Միացնել ձայնը' : 'Անջատել ձայնը'}
+                      className="absolute bottom-4 right-4 z-10 w-11 h-11 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 shadow-lg"
+                    >
+                      {isMuted ? (
+                        <VolumeX className="w-5 h-5" />
+                      ) : (
+                        <Volume2 className="w-5 h-5" />
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <img
+                    src={item.coverImage}
+                    alt={tr.title}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="lg:col-span-2">
+
+              {/* Metadata */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 pb-8 border-b border-white/10">
+
+                {item.year && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.year')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-red-500" />
+                      {item.year}
+                    </span>
+                  </div>
+                )}
+
+                {item.genre && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.genre')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Tag className="w-3.5 h-3.5 text-red-500" />
+                      {item.genre}
+                    </span>
+                  </div>
+                )}
+
+                {item.duration && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.duration')}
+                    </span>
+                    <span className="text-sm text-white flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-red-500" />
+                      {item.duration}
+                    </span>
+                  </div>
+                )}
+
+                {item.difficulty && (
+                  <div>
+                    <span className="text-xs uppercase tracking-wider text-white/40 block mb-1">
+                      {t('common.difficulty')}
+                    </span>
+                    <span className="text-sm text-white">
+                      {t(`academy.${item.difficulty}` as never)}
+                    </span>
+                  </div>
+                )}
+
+              </div>
+
+              {/* Synopsis */}
+              <div className="mb-8">
+                <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
+                  {t('common.readMore')}
+                </h2>
+                <p className="text-lg text-white/70 leading-relaxed">
+                  {tr.synopsis}
+                </p>
+              </div>
+
+              {/* Description */}
+              <div className="mb-8">
+                <h2 className="text-xs uppercase tracking-widest text-red-500 font-semibold mb-3">
+                  EvoVision Films
+                </h2>
+                <p className="text-base text-white/60 leading-relaxed whitespace-pre-line">
+                  {tr.description}
+                </p>
+              </div>
+
+              {/* Sponsor */}
+              <SponsorBlock sponsor={sponsor} />
+
+              {/* CTA */}
+              {item.telegramLink && !showComingSoon && (
+                <div className="mt-8">
+                  <a
+                    href={item.telegramLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-7 py-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-red-600/30"
+                  >
+                    <Send className="w-5 h-5" />
+                    {t('common.watchOnTelegram')}
+                  </a>
+                </div>
+              )}
+
+            </div>
+          </div>
+        )}
 
         {/* Related */}
         {related.length > 0 && (

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Lock, LogOut, Shield, LayoutDashboard, Film, Clapperboard, Scissors, Users, ExternalLink, TrendingUp, FileText, CircleCheck, File as FileEdit, Briefcase } from 'lucide-react';
-import { useAuth } from '@/lib/AuthContext';
-import { useLanguage } from '@/lib/LanguageContext';
-import { Link } from '@/lib/router';
-import { fetchDashboardStats } from '@/lib/adminApi';
-import { FilmsView } from '@/pages/admin/FilmsView';
-import { EpisodesView } from '@/pages/admin/EpisodesView';
-import { SponsorsView } from '@/pages/admin/SponsorsView';
-import { LessonsView } from '@/pages/admin/LessonsView';
-import { WorksView } from '@/pages/admin/WorksView';
+import { useAuth } from '../lib/AuthContext';
+import { useLanguage } from '../lib/LanguageContext';
+import { Link } from '../lib/router';
+import { fetchDashboardStats } from '../lib/adminApi';
+import { FilmsView } from './admin/FilmsView';
+import { EpisodesView } from './admin/EpisodesView';
+import { SponsorsView } from './admin/SponsorsView';
+import { LessonsView } from './admin/LessonsView';
+import { WorksView } from './admin/WorksView';
+import { CartoonsView } from './admin/CartoonsView';
 
 type Stats = {
   films: number;
@@ -22,6 +23,7 @@ type Stats = {
 const navItems = [
   { key: 'admin.dashboard', icon: LayoutDashboard, to: '/admin' },
   { key: 'admin.films', icon: Film, to: '/admin/films' },
+  { key: 'admin.cartoons', icon: Film, to: '/admin/cartoons' },
   { key: 'admin.episodes', icon: Clapperboard, to: '/admin/episodes' },
   { key: 'admin.lessons', icon: Scissors, to: '/admin/lessons' },
   { key: 'admin.works', icon: Briefcase, to: '/admin/works' },
@@ -457,6 +459,8 @@ if (seg.length <= 1) {
   view = <DashboardView />;
 } else if (seg[1] === 'films') {
   view = <FilmsView />;
+} else if (seg[1] === 'cartoons') {
+  view = <CartoonsView />;
 } else if (seg[1] === 'episodes') {
   view = <EpisodesView />;
 } else if (seg[1] === 'lessons') {

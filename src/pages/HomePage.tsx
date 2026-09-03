@@ -1,10 +1,10 @@
 import { ArrowRight, Film, Clapperboard, Scissors } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import { Link } from '@/lib/router';
-import { ContentCard } from '@/components/ContentCard';
-import { SectionHeader } from '@/components/SectionHeader';
-import { sampleImages } from '@/lib/sampleData';
-import { useFeaturedContent, useContentByProgram } from '@/lib/contentHooks';
+import { useLanguage } from '../lib/LanguageContext';
+import { Link } from '../lib/router';
+import { ContentCard } from '../components/ContentCard';
+import { SectionHeader } from '../components/SectionHeader';
+import { sampleImages } from '../lib/sampleData';
+import { useFeaturedContent, useContentByProgram } from '../lib/contentHooks';
 
 export function HomePage() {
   const { t } = useLanguage();

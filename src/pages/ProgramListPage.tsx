@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import { ContentCard } from '@/components/ContentCard';
-import { SponsorBlock } from '@/components/SponsorBlock';
-import { useContentByProgram, useSponsorById } from '@/lib/contentHooks';
-import type { ContentItem } from '@/lib/types';
+import { useLanguage } from '../lib/LanguageContext';
+import { ContentCard } from '../components/ContentCard';
+import { SponsorBlock } from '../components/SponsorBlock';
+import { useContentByProgram, useSponsorById } from '../lib/contentHooks';
+import type { ContentItem } from '../lib/types';
 
 type SectionProps = {
   title: string;
@@ -53,7 +53,7 @@ function ContentCarousel({ title, items }: SectionProps) {
             [&::-webkit-scrollbar]:hidden
           "
         >
-          {items.map((item, index) => (
+          {items.map((item) => (
             <div
               key={item.id}
               className="
@@ -114,7 +114,22 @@ export function ProgramListPage({
   const { items, loading } = useContentByProgram(programSlug);
 
   const isKinoMas = programSlug === 'kinomas';
+  const isCartoons = programSlug === 'cartoons';
   const isWorks = programSlug === 'works';
+
+  /*
+   * KinoMas / Cartoons:
+   *
+   * Both programs use the same content structure:
+   * - movies
+   * - series
+   * - sponsor block
+   *
+   * The difference is only the programSlug.
+   *
+   * KinoMas -> films and series
+   * Cartoons -> only cartoons
+   */
 
   const movies = items.filter(
     (item) =>
@@ -157,7 +172,10 @@ export function ProgramListPage({
   );
 
   const sponsorId = items.find((item) => item.sponsorId)?.sponsorId;
-  const sponsor = useSponsorById(isKinoMas ? sponsorId : undefined);
+
+  const sponsor = useSponsorById(
+    isKinoMas || isCartoons ? sponsorId : undefined
+  );
 
   return (
     <div>
@@ -211,22 +229,39 @@ export function ProgramListPage({
             </div>
           ) : isKinoMas ? (
             <>
-              {/* FILMS */}
+              {/* KINOMAS — FILMS */}
               <ContentCarousel
                 title="KinoMas — Ֆիլմեր"
                 items={movies}
               />
 
-              {/* SERIES */}
+              {/* KINOMAS — SERIES */}
               <ContentCarousel
                 title="KinoMas — Սերիալներ"
                 items={series}
               />
 
-              {/* SPONSOR — always at the bottom */}
+              {/* KINOMAS — SPONSOR */}
               <SponsorBlock sponsor={sponsor} />
 
               {!movies.length && !series.length && (
+                <p className="text-center text-white/40 py-20">
+                  {t('common.noContent')}
+                </p>
+              )}
+            </>
+          ) : isCartoons ? (
+            <>
+              {/* CARTOONS */}
+              <ContentCarousel
+                title="Մուլտֆիլմեր"
+                items={items}
+              />
+
+              {/* CARTOONS — SPONSOR */}
+              <SponsorBlock sponsor={sponsor} />
+
+              {!items.length && (
                 <p className="text-center text-white/40 py-20">
                   {t('common.noContent')}
                 </p>
