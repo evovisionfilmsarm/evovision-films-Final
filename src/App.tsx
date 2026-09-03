@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { LanguageProvider, useLanguage } from '@/lib/LanguageContext';
-import { AuthProvider } from '@/lib/AuthContext';
-import { useRouter } from '@/lib/router';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { HomePage } from '@/pages/HomePage';
-import { ProgramListPage } from '@/pages/ProgramListPage';
-import { AcademyPage } from '@/pages/AcademyPage';
-import { WorksPage } from '@/pages/workspage';
-import { ContentDetailPage } from '@/pages/ContentDetailPage';
-import { AboutPage } from '@/pages/AboutPage';
-import { ContactPage } from '@/pages/ContactPage';
-import { AdminPage } from '@/pages/AdminPage';
-import { PartnersPage } from '@/pages/PartnersPage';
-import { sampleImages } from '@/lib/sampleData';
+import { LanguageProvider, useLanguage } from './lib/LanguageContext';
+import { AuthProvider } from './lib/AuthContext';
+import { useRouter } from './lib/router';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+import { HomePage } from './pages/HomePage';
+import { ProgramListPage } from './pages/ProgramListPage';
+import { AcademyPage } from './pages/AcademyPage';
+import { WorksPage } from './pages/workspage';
+import { ContentDetailPage } from './pages/ContentDetailPage';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { AdminPage } from './pages/AdminPage';
+import { PartnersPage } from './pages/PartnersPage';
+import { sampleImages } from './lib/sampleData';
 
 function DocumentMeta() {
   const { lang } = useLanguage();
@@ -69,6 +69,17 @@ function Routes() {
     );
     title = `${t('kadrich.title')} — EvoVision Films`;
 
+  } else if (segs[0] === 'cartoons' && segs.length === 1) {
+    page = (
+      <ProgramListPage
+        programSlug="cartoons"
+        title="Մուլտֆիլմեր"
+        subtitle="Մուլտֆիլմեր՝ EvoVision Films-ում"
+        heroImage={sampleImages.reel}
+      />
+    );
+    title = 'Մուլտֆիլմեր — EvoVision Films';
+
   } else if (segs[0] === 'academy' && segs.length === 1) {
     page = <AcademyPage />;
     title = `${t('academy.title')} — EvoVision Films`;
@@ -81,6 +92,7 @@ function Routes() {
     (
       segs[0] === 'kinomas' ||
       segs[0] === 'kadrich-durs' ||
+      segs[0] === 'cartoons' ||
       segs[0] === 'academy' ||
       segs[0] === 'works'
     ) &&
