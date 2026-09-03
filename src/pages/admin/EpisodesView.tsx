@@ -14,8 +14,8 @@ import {
   Image as ImageIcon,
   FolderTree,
 } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import type { ContentItem, ContentTranslation, Language } from '@/lib/types';
+import { useLanguage } from '../../lib/LanguageContext';
+import type { ContentItem, ContentTranslation, Language } from '../../lib/types';
 import {
   fetchAllContent,
   createContent,
@@ -23,9 +23,9 @@ import {
   deleteContent,
   fetchAllSponsors,
   type ContentInput,
-} from '@/lib/adminApi';
-import type { Sponsor } from '@/lib/types';
-import { uploadImage } from '@/lib/imageUpload';
+} from '../../lib/adminApi';
+import type { Sponsor } from '../../lib/types';
+import { uploadImage } from '../../lib/imageUpload';
 
 const LANGS: Language[] = ['hy', 'ru', 'en'];
 const LANG_LABELS: Record<Language, string> = { hy: 'HY', ru: 'RU', en: 'EN' };

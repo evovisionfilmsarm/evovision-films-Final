@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Briefcase, Plus, Pencil, Trash2, X, Upload, Loader as Loader2, CircleAlert as AlertCircle, CircleCheck as CheckCircle2, Star, Globe, Image as ImageIcon } from 'lucide-react';
-import { useLanguage } from '@/lib/LanguageContext';
-import type { ContentItem, ContentTranslation, Language } from '@/lib/types';
+import { useLanguage } from '../../lib/LanguageContext';
+import type { ContentItem, ContentTranslation, Language } from '../../lib/types';
 import {
   fetchAllContent,
   createContent,
   updateContent,
   deleteContent,
   type ContentInput,
-} from '@/lib/adminApi';
-import { fetchAllSponsors } from '@/lib/adminApi';
-import type { Sponsor } from '@/lib/types';
-import { uploadImage } from '@/lib/imageUpload';
+} from '../../lib/adminApi';
+import { fetchAllSponsors } from '../../lib/adminApi';
+import type { Sponsor } from '../../lib/types';
+import { uploadImage } from '../../lib/imageUpload';
 
 const LANGS: Language[] = ['hy', 'ru', 'en'];
 const LANG_LABELS: Record<Language, string> = { hy: 'HY', ru: 'RU', en: 'EN' };

@@ -14,8 +14,8 @@ import {
   Power,
 } from 'lucide-react';
 
-import { useLanguage } from '@/lib/LanguageContext';
-import type { Language, Sponsor, SponsorTranslation } from '@/lib/types';
+import { useLanguage } from '../../lib/LanguageContext';
+import type { Language, Sponsor, SponsorTranslation } from '../../lib/types';
 
 import {
   fetchAllSponsors,
@@ -23,9 +23,9 @@ import {
   updateSponsor,
   deleteSponsor,
   type SponsorInput,
-} from '@/lib/adminApi';
+} from '../../lib/adminApi';
 
-import { uploadImage } from '@/lib/imageUpload';
+import { uploadImage } from '../../lib/imageUpload';
 
 const LANGS: Language[] = ['hy', 'ru', 'en'];
 

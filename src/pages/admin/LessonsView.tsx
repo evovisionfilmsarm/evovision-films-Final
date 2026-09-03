@@ -10,7 +10,7 @@ import {
   X,
 } from 'lucide-react';
 
-import { useLanguage } from '@/lib/LanguageContext';
+import { useLanguage } from '../../lib/LanguageContext';
 
 import {
   fetchAllContent,
@@ -18,15 +18,15 @@ import {
   updateContent,
   deleteContent,
   type ContentInput,
-} from '@/lib/adminApi';
+} from '../../lib/adminApi';
 
 import type {
   ContentItem,
   ContentTranslation,
   Language,
-} from '@/lib/types';
+} from '../../lib/types';
 
-import { uploadImage } from '@/lib/imageUpload';
+import { uploadImage } from '../../lib/imageUpload';
 
 const LANGS: Language[] = ['hy', 'ru', 'en'];
 
@@ -635,7 +635,26 @@ export function LessonsView() {
               <div className="space-y-4">
                 <div>
                   <label className="text-xs uppercase tracking-wider text-white/40 block mb-1.5">
-                    Video / Telegram URL
+                    YouTube / Video URL
+                  </label>
+
+                  <input
+                    type="url"
+                    value={form.trailerUrl ?? ''}
+                    onChange={(e) =>
+                      setForm((current) => ({
+                        ...current,
+                        trailerUrl: e.target.value,
+                      }))
+                    }
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    className="w-full px-3.5 py-2.5 bg-zinc-900 border border-white/10 rounded-lg text-white text-sm focus:border-red-600/50 focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs uppercase tracking-wider text-white/40 block mb-1.5">
+                    Telegram URL
                   </label>
 
                   <input
@@ -647,7 +666,7 @@ export function LessonsView() {
                         telegramLink: e.target.value,
                       }))
                     }
-                    placeholder="https://..."
+                    placeholder="https://t.me/..."
                     className="w-full px-3.5 py-2.5 bg-zinc-900 border border-white/10 rounded-lg text-white text-sm focus:border-red-600/50 focus:outline-none"
                   />
                 </div>
